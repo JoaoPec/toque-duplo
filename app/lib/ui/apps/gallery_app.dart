@@ -8,41 +8,86 @@ import '../widgets.dart';
 const _photosRed = Color(0xFFEA4335);
 
 class _Pic {
-  const _Pic(this.glyph, this.colors, {this.caption, this.evId, this.exif});
+  const _Pic(
+    this.glyph,
+    this.colors, {
+    this.asset,
+    this.caption,
+    this.evId,
+    this.exif,
+  });
   final IconData glyph;
   final List<Color> colors;
+  final String? asset;
   final String? caption;
   final String? evId;
   final String? exif;
 }
 
 const _visible = [
-  _Pic(Icons.beach_access, [Color(0xFF36D1DC), Color(0xFF5B86E5)],
-      caption: 'Praia', evId: 'album_beach', exif: 'Maresias · abril'),
-  _Pic(Icons.apartment, [Color(0xFF8E9EAB), Color(0xFFEEF2F3)]),
-  _Pic(Icons.outdoor_grill, [Color(0xFFF7971E), Color(0xFFFFD200)]),
-  _Pic(Icons.ramen_dining, [Color(0xFFCB2D3E), Color(0xFFEF473A)]),
-  _Pic(Icons.sailing, [Color(0xFF2193B0), Color(0xFF6DD5ED)]),
-  _Pic(Icons.location_city, [Color(0xFF606C88), Color(0xFF3F4C6B)]),
+  _Pic(
+    Icons.beach_access,
+    [Color(0xFF36D1DC), Color(0xFF5B86E5)],
+    asset: 'assets/images/gallery/gallery_beach.png',
+    caption: 'Praia',
+    evId: 'album_beach',
+    exif: 'Maresias · abril',
+  ),
+  _Pic(Icons.apartment, [
+    Color(0xFF8E9EAB),
+    Color(0xFFEEF2F3),
+  ], asset: 'assets/images/gallery/gallery_apartment.png'),
+  _Pic(Icons.outdoor_grill, [
+    Color(0xFFF7971E),
+    Color(0xFFFFD200),
+  ], asset: 'assets/images/gallery/gallery_barbecue.png'),
+  _Pic(Icons.ramen_dining, [
+    Color(0xFFCB2D3E),
+    Color(0xFFEF473A),
+  ], asset: 'assets/images/gallery/gallery_ramen.png'),
+  _Pic(Icons.sailing, [
+    Color(0xFF2193B0),
+    Color(0xFF6DD5ED),
+  ], asset: 'assets/images/gallery/gallery_maresias_sunset.png'),
+  _Pic(Icons.location_city, [
+    Color(0xFF606C88),
+    Color(0xFF3F4C6B),
+  ], asset: 'assets/images/gallery/gallery_sao_paulo.png'),
 ];
 
 const _hidden = [
-  _Pic(Icons.face_retouching_natural, [Color(0xFF614385), Color(0xFF516395)],
-      caption: 'perfil_3_gui.jpg',
-      evId: 'glasses_selfie',
-      exif: 'óculos de grau · regata · espelho de academia · Moema'),
-  _Pic(Icons.surfing, [Color(0xFF2980B9), Color(0xFF6DD5FA)],
-      caption: 'perfil_2_theo.jpg',
-      evId: 'theo_selfie',
-      exif: 'boné · barba postiça · prancha · Maresias'),
-  _Pic(Icons.wb_twilight, [Color(0xFFFF512F), Color(0xFFF09819)],
-      caption: 'IMG_0442.jpg',
-      evId: 'geotag_maresias',
-      exif: 'GPS: -23.79, -45.57 (Maresias) · 22/02 14:30'),
-  _Pic(Icons.collections, [Color(0xFF232526), Color(0xFF414345)],
-      caption: 'stories_salvos',
-      evId: 'trophy_stories',
-      exif: '3 prints: último story de Camila, Bia e Iasmin'),
+  _Pic(
+    Icons.face_retouching_natural,
+    [Color(0xFF614385), Color(0xFF516395)],
+    asset: 'assets/images/characters/rafael_gui.png',
+    caption: 'perfil_3_gui.jpg',
+    evId: 'glasses_selfie',
+    exif: 'óculos de grau · regata · espelho de academia · Moema',
+  ),
+  _Pic(
+    Icons.surfing,
+    [Color(0xFF2980B9), Color(0xFF6DD5FA)],
+    asset: 'assets/images/characters/rafael_theo.png',
+    caption: 'perfil_2_theo.jpg',
+    evId: 'theo_selfie',
+    exif: 'boné · barba postiça · prancha · Maresias',
+  ),
+  _Pic(
+    Icons.wb_twilight,
+    [Color(0xFFFF512F), Color(0xFFF09819)],
+    asset: 'assets/images/gallery/gallery_maresias_sunset.png',
+    caption: 'IMG_0442.jpg',
+    evId: 'geotag_maresias',
+    exif: 'GPS: -23.79, -45.57 (Maresias) · 22/02 14:30',
+  ),
+  _Pic(
+    Icons.collections,
+    [Color(0xFF232526), Color(0xFF414345)],
+    asset: 'assets/images/gallery/trophy_stories.png',
+    caption: 'stories_salvos',
+    evId: 'trophy_stories',
+    exif: '3 prints: último story de Camila, Bia e Iasmin',
+  ),
 ];
 
 class GalleryApp extends StatelessWidget {
@@ -55,15 +100,20 @@ class GalleryApp extends StatelessWidget {
       headerColor: AppTheme.bg,
       headerFg: AppTheme.text,
       title: 'Fotos',
-      titleWidget: Row(children: [
-        const Icon(Icons.photo, color: _photosRed),
-        const SizedBox(width: 8),
-        Text('Fotos',
+      titleWidget: Row(
+        children: [
+          const Icon(Icons.photo, color: _photosRed),
+          const SizedBox(width: 8),
+          Text(
+            'Fotos',
             style: TextStyle(
-                color: AppTheme.text,
-                fontSize: 18,
-                fontWeight: FontWeight.w600)),
-      ]),
+              color: AppTheme.text,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
       body: ListView(
         children: [
           _sectionLabel('Hoje · este mês'),
@@ -72,52 +122,61 @@ class GalleryApp extends StatelessWidget {
           _sectionLabel('Álbuns'),
           ListTile(
             leading: Icon(
-                g.folderUnlocked ? Icons.folder_open : Icons.lock,
-                color: g.caseOpen(2) ? _photosRed : AppTheme.textDim),
-            title: Text('Documentos / Trabalho',
-                style: TextStyle(color: AppTheme.text)),
+              g.folderUnlocked ? Icons.folder_open : Icons.lock,
+              color: g.caseOpen(2) ? _photosRed : AppTheme.textDim,
+            ),
+            title: Text(
+              'Documentos / Trabalho',
+              style: TextStyle(color: AppTheme.text),
+            ),
             subtitle: Text(
-                !g.caseOpen(2)
-                    ? 'pasta protegida'
-                    : g.folderUnlocked
-                        ? '4 itens'
-                        : 'protegida por PIN — toque para abrir',
-                style: TextStyle(color: AppTheme.textDim, fontSize: 12)),
+              !g.caseOpen(2)
+                  ? 'pasta protegida'
+                  : g.folderUnlocked
+                  ? '4 itens'
+                  : 'protegida por PIN — toque para abrir',
+              style: TextStyle(color: AppTheme.textDim, fontSize: 12),
+            ),
             onTap: !g.caseOpen(2)
                 ? null
                 : g.folderUnlocked
-                    ? () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (_) => const _HiddenFolder()))
-                    : () => _askPin(context),
+                ? () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const _HiddenFolder()),
+                  )
+                : () => _askPin(context),
           ),
           if (!g.caseOpen(2))
             LockedBanner(
-                text:
-                    'Você nem repara nessa pasta ainda. Algo precisa te fazer '
-                    'desconfiar dela primeiro.'),
+              text:
+                  'Você nem repara nessa pasta ainda. Algo precisa te fazer '
+                  'desconfiar dela primeiro.',
+            ),
         ],
       ),
     );
   }
 
   Widget _sectionLabel(String t) => Padding(
-        padding: const EdgeInsets.fromLTRB(14, 14, 14, 6),
-        child: Text(t,
-            style: TextStyle(
-                color: AppTheme.text,
-                fontSize: 15,
-                fontWeight: FontWeight.w700)),
-      );
+    padding: const EdgeInsets.fromLTRB(14, 14, 14, 6),
+    child: Text(
+      t,
+      style: TextStyle(
+        color: AppTheme.text,
+        fontSize: 15,
+        fontWeight: FontWeight.w700,
+      ),
+    ),
+  );
 
   Widget _grid(List<_Pic> pics) => GridView.count(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: 3,
-        mainAxisSpacing: 3,
-        crossAxisSpacing: 3,
-        padding: const EdgeInsets.symmetric(horizontal: 3),
-        children: [for (final p in pics) _Thumb(pic: p)],
-      );
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    crossAxisCount: 3,
+    mainAxisSpacing: 3,
+    crossAxisSpacing: 3,
+    padding: const EdgeInsets.symmetric(horizontal: 3),
+    children: [for (final p in pics) _Thumb(pic: p)],
+  );
 
   void _askPin(BuildContext context) {
     showDialog(context: context, builder: (_) => const _PinDialog());
@@ -138,21 +197,25 @@ class _Thumb extends StatelessWidget {
         builder: (_) => _PicSheet(pic: pic),
       ),
       child: Container(
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: pic.colors),
-          border:
-              pinned ? Border.all(color: AppTheme.accent, width: 2.5) : null,
+          border: pinned
+              ? Border.all(color: AppTheme.accent, width: 2.5)
+              : null,
         ),
         child: Stack(
           children: [
-            Center(
-                child: Icon(pic.glyph, color: Colors.white70, size: 34)),
+            if (pic.asset != null)
+              Positioned.fill(child: Image.asset(pic.asset!, fit: BoxFit.cover))
+            else
+              Center(child: Icon(pic.glyph, color: Colors.white70, size: 34)),
             if (pinned)
               const Positioned(
-                  top: 4,
-                  right: 4,
-                  child: Icon(Icons.push_pin,
-                      color: AppTheme.accent, size: 16)),
+                top: 4,
+                right: 4,
+                child: Icon(Icons.push_pin, color: AppTheme.accent, size: 16),
+              ),
           ],
         ),
       ),
@@ -174,10 +237,15 @@ class _PicSheet extends StatelessWidget {
           Container(
             height: 160,
             decoration: BoxDecoration(
-                gradient: LinearGradient(colors: pic.colors),
-                borderRadius: BorderRadius.circular(12)),
-            child: Center(
-                child: Icon(pic.glyph, color: Colors.white70, size: 56)),
+              gradient: LinearGradient(colors: pic.colors),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: pic.asset != null
+                ? Image.asset(pic.asset!, fit: BoxFit.cover)
+                : Center(
+                    child: Icon(pic.glyph, color: Colors.white70, size: 56),
+                  ),
           ),
           const SizedBox(height: 12),
           Row(
@@ -186,19 +254,25 @@ class _PicSheet extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(pic.caption ?? 'IMG',
-                        style: TextStyle(
-                            color: AppTheme.text,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16)),
+                    Text(
+                      pic.caption ?? 'IMG',
+                      style: TextStyle(
+                        color: AppTheme.text,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      ),
+                    ),
                     if (pic.exif != null)
                       Padding(
                         padding: const EdgeInsets.only(top: 4),
-                        child: Text(pic.exif!,
-                            style: TextStyle(
-                                color: AppTheme.textDim,
-                                fontSize: 13,
-                                height: 1.4)),
+                        child: Text(
+                          pic.exif!,
+                          style: TextStyle(
+                            color: AppTheme.textDim,
+                            fontSize: 13,
+                            height: 1.4,
+                          ),
+                        ),
                       ),
                   ],
                 ),
@@ -251,8 +325,9 @@ class _PinDialogState extends State<_PinDialog> {
       final ok = context.read<GameState>().tryUnlockFolder(_pin);
       if (ok) {
         Navigator.of(context).pop();
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => const _HiddenFolder()));
+        Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (_) => const _HiddenFolder()));
       } else {
         setState(() {
           _error = true;
@@ -271,16 +346,26 @@ class _PinDialogState extends State<_PinDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.lock, color: _error ? AppTheme.accent : AppTheme.textDim),
+            Icon(
+              Icons.lock,
+              color: _error ? AppTheme.accent : AppTheme.textDim,
+            ),
             const SizedBox(height: 8),
-            Text('PIN da pasta',
-                style: TextStyle(
-                    color: AppTheme.text, fontWeight: FontWeight.w700)),
+            Text(
+              'PIN da pasta',
+              style: TextStyle(
+                color: AppTheme.text,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const SizedBox(height: 4),
-            Text(_error ? 'PIN incorreto' : 'dica: o ano que ele usa pra tudo',
-                style: TextStyle(
-                    color: _error ? AppTheme.accent : AppTheme.textDim,
-                    fontSize: 12)),
+            Text(
+              _error ? 'PIN incorreto' : 'dica: o ano que ele usa pra tudo',
+              style: TextStyle(
+                color: _error ? AppTheme.accent : AppTheme.textDim,
+                fontSize: 12,
+              ),
+            ),
             const SizedBox(height: 14),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -319,16 +404,22 @@ class _PinDialogState extends State<_PinDialog> {
                           : TextButton(
                               onPressed: () {
                                 if (d == '⌫') {
-                                  setState(() => _pin = _pin.isEmpty
-                                      ? ''
-                                      : _pin.substring(0, _pin.length - 1));
+                                  setState(
+                                    () => _pin = _pin.isEmpty
+                                        ? ''
+                                        : _pin.substring(0, _pin.length - 1),
+                                  );
                                 } else {
                                   _tap(d);
                                 }
                               },
-                              child: Text(d,
-                                  style: TextStyle(
-                                      color: AppTheme.text, fontSize: 22)),
+                              child: Text(
+                                d,
+                                style: TextStyle(
+                                  color: AppTheme.text,
+                                  fontSize: 22,
+                                ),
+                              ),
                             ),
                     ),
                 ],
