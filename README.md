@@ -6,6 +6,12 @@
   <img src="app/assets/images/reference/rafael_personas_sheet.png" width="80%" alt="Rafael's three dating personas" />
 </p>
 
+<!-- DEMO: grave um GIF de gameplay (3-5s navegando no celular/montando provas), salve em docs/demo.gif e descomente
+<p align="center">
+  <img src="docs/demo.gif" width="40%" alt="Gameplay — investigating the phone" />
+</p>
+-->
+
 > A woman hires you to confirm a run-of-the-mill cheating suspicion. Her boyfriend's phone proves the affair in ten minutes — then spends the next two hours proving he is **three different men**, and that two of the women he dated were never seen again.
 
 ## What it is
